@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title> Color Scales</title>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+</head>
+<body>
+  <script>
+        var data = d3.range(0, 20);
+        var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
+        var svg = d3.select('body')
+           .append('svg')
+           .attrs({width: 400, height: 20});
+        
+        svg.selectAll('rect')
+            .data(data)
+            .enter()
+            .append('rect')
+            .attrs({
+                fill: function(d) {
+                    return colorScale(d);
+                },
+                x: function(d, i) {
+                    return i * 20;
+                },
+                width: 20,
+                height: 20
+            });
+      
+  </script>
+</body>
+</html>

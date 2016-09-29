@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Bubble Plot</title>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+</head>
+<body>
+  <script>
+    var csvData = "CountryCode,CountryName,LifeExp,FertRate,Population,Region\nABW,Aruba,75.33217073,1.673,102911,Latin America & Caribbean\nAFG,Afghanistan,60.93141463,4.9,30551674,South Asia\nAGO,Angola,51.86617073,5.863,21471618,Sub-Saharan Africa\nALB,Albania,77.5372439,1.771,2897366,Europe & Central Asia\nARE,United Arab Emirates,77.13129268,1.801,9346129,Middle East & North Africa\nARG,Argentina,76.18729268,2.175,41446246,Latin America & Caribbean\nARM,Armenia,74.5407561,1.74,2976566,Europe & Central Asia\nATG,Antigua and Barbuda,75.82929268,2.089,89985,Latin America & Caribbean\nAUS,Australia,82.19756098,1.921,23125868,East Asia & Pacific\nAUT,Austria,80.8902439,1.44,8479375,Europe & Central Asia\nAZE,Azerbaijan,70.69314634,2,9416801,Europe & Central Asia\nBDI,Burundi,54.09719512,6.033,10162532,Sub-Saharan Africa\nBEL,Belgium,80.38536585,1.79,11182817,Europe & Central Asia\nBEN,Benin,59.28756098,4.845,10323474,Sub-Saharan Africa\nBFA,Burkina Faso,56.27502439,5.605,16934839,Sub-Saharan Africa\nBGD,Bangladesh,70.69339024,2.177,156594962,South Asia\nBGR,Bulgaria,74.46585366,1.5,7265115,Europe & Central Asia\nBHR,Bahrain,76.66987805,2.075,1332171,Middle East & North Africa\nBHS,\"Bahamas, The\",75.07256098,1.888,377374,Latin America & Caribbean\nBIH,Bosnia and Herzegovina,76.27990244,1.283,3829307,Europe & Central Asia\nBLR,Belarus,72.47073171,1.62,9466000,Europe & Central Asia\nBLZ,Belize,73.90487805,2.676,331900,Latin America & Caribbean\nBMU,Bermuda,80.57243902,1.63,65001,North America\nBOL,Bolivia,67.21736585,3.221,10671200,Latin America & Caribbean\nBRA,Brazil,73.88595122,1.801,200361925,Latin America & Caribbean\nBRB,Barbados,75.29641463,1.849,284644,Latin America & Caribbean\nBRN,Brunei Darussalam,78.56643902,1.994,417784,East Asia & Pacific\nBTN,Bhutan,68.30231707,2.232,753947,South Asia\nBWA,Botswana,47.40560976,2.619,2021144,Sub-Saharan Africa\nCAF,Central African Republic,50.13680488,4.365,4616417,Sub-Saharan Africa\nCAN,Canada,81.40112195,1.61,35158304,North America\nCHE,Switzerland,82.74878049,1.52,8089346,Europe & Central Asia\nCHI,Channel Islands,80.25953659,1.459,162018,Europe & Central Asia\nCHL,Chile,79.83680488,1.82,17619708,Latin America & Caribbean\nCHN,China,75.35302439,1.668,1357380000,East Asia & Pacific\nCIV,Cote d'Ivoire,50.75741463,4.866,20316086,Sub-Saharan Africa\nCMR,Cameroon,55.04180488,4.78,22253959,Sub-Saharan Africa\nCOG,\"Congo, Rep.\",58.77,4.969,4447632,Sub-Saharan Africa\nCOL,Colombia,73.97882927,2.286,48321405,Latin America & Caribbean\nCOM,Comoros,60.8574878,4.714,734917,Sub-Saharan Africa\nCPV,Cabo Verde,74.87068293,2.292,498897,Sub-Saharan Africa\nCRI,Costa Rica,79.921,1.795,4872166,Latin America & Caribbean\nCUB,Cuba,79.23926829,1.449,11265629,Latin America & Caribbean\nCYP,Cyprus,79.80431707,1.461,1141166,Europe & Central Asia\nCZE,Czech Republic,78.27804878,1.45,10514272,Europe & Central Asia\nDEU,Germany,81.04390244,1.38,80645605,Europe & Central Asia\nDJI,Djibouti,61.78695122,3.387,872932,Middle East & North Africa\nDNK,Denmark,80.30243902,1.73,5614932,Europe & Central Asia\nDOM,Dominican Republic,73.45095122,2.484,10403761,Latin America & Caribbean\nDZA,Algeria,71.00965854,2.795,39208194,Middle East & North Africa\nECU,Ecuador,76.46507317,2.559,15737878,Latin America & Caribbean\nEGY,\"Egypt, Arab Rep.\",71.13292683,2.77,82056378,Middle East & North Africa\nERI,Eritrea,62.75463415,4.696,6333135,Sub-Saharan Africa\nESP,Spain,82.42682927,1.32,46620045,Europe & Central Asia\nEST,Estonia,76.42439024,1.56,1317997,Europe & Central Asia\nETH,Ethiopia,63.61734146,4.519,94100756,Sub-Saharan Africa\nFIN,Finland,80.83170732,1.8,5438972,Europe & Central Asia\nFJI,Fiji,69.923,2.588,881065,East Asia & Pacific\nFRA,France,81.96829268,2.01,65920302,Europe & Central Asia\nFSM,\"Micronesia, Fed. Sts.\",68.96097561,3.294,103549,East Asia & Pacific\nGAB,Gabon,63.441,4.087,1671711,Sub-Saharan Africa\nGBR,United Kingdom,80.95609756,1.92,64106779,Europe & Central Asia\nGEO,Georgia,74.0795122,1.817,4487200,Europe & Central Asia\nGHA,Ghana,61.09863415,3.857,25904598,Sub-Saharan Africa\nGIN,Guinea,56.09165854,4.915,11745189,Sub-Saharan Africa\nGMB,\"Gambia, The\",58.83134146,5.751,1849285,Sub-Saharan Africa\nGNB,Guinea-Bissau,54.27170732,4.927,1704255,Sub-Saharan Africa\nGNQ,Equatorial Guinea,53.11456098,4.845,757014,Sub-Saharan Africa\nGRC,Greece,80.63414634,1.29,11027549,Europe & Central Asia\nGRD,Grenada,72.74134146,2.17,105897,Latin America & Caribbean\nGTM,Guatemala,71.99282927,3.783,15468203,Latin America & Caribbean\nGUM,Guam,78.87512195,2.405,165124,East Asia & Pacific\nGUY,Guyana,66.20790244,2.546,799613,Latin America & Caribbean\nHKG,\"Hong Kong SAR, China\",83.83170732,1.124,7187500,East Asia & Pacific\nHND,Honduras,73.80304878,3.001,8097688,Latin America & Caribbean\nHRV,Croatia,77.12682927,1.51,4255700,Europe & Central Asia\nHTI,Haiti,63.05885366,3.148,10317461,Latin America & Caribbean\nHUN,Hungary,75.26829268,1.34,9893082,Europe & Central Asia\nIDN,Indonesia,70.81743902,2.338,249865631,East Asia & Pacific\nIND,India,66.4562439,2.479,1252139596,South Asia\nIRL,Ireland,81.04390244,2.01,4598294,Europe & Central Asia\nIRN,\"Iran, Islamic Rep.\",74.0687561,1.92,77447168,Middle East & North Africa\nIRQ,Iraq,69.47168293,4.026,33417476,Middle East & North Africa\nISL,Iceland,83.11707317,2.04,323764,Europe & Central Asia\nISR,Israel,82.05609756,3.03,8059500,Middle East & North Africa\nITA,Italy,82.2902439,1.43,60233948,Europe & Central Asia\nJAM,Jamaica,73.46892683,2.26,2714734,Latin America & Caribbean\nJOR,Jordan,73.90141463,3.244,6460000,Middle East & North Africa\nJPN,Japan,83.33195122,1.43,127338621,East Asia & Pacific\nKAZ,Kazakhstan,70.45,2.64,17035275,Europe & Central Asia\nKEN,Kenya,61.68397561,4.382,44353691,Sub-Saharan Africa\nKGZ,Kyrgyz Republic,70.20243902,3.2,5719600,Europe & Central Asia\nKHM,Cambodia,71.74756098,2.861,15135169,East Asia & Pacific\nKIR,Kiribati,68.84907317,2.952,102351,East Asia & Pacific\nKOR,\"Korea, Rep.\",81.4597561,1.187,50219669,East Asia & Pacific\n,Kosovo,70.79756098,2.16,1818117,Europe & Central Asia\nKWT,Kuwait,74.4627561,2.6,3368572,Middle East & North Africa\nLAO,Lao PDR,68.24941463,3.02,6769727,East Asia & Pacific\nLBN,Lebanon,80.12887805,1.495,4467390,Middle East & North Africa\nLBR,Liberia,60.53187805,4.792,4294077,Sub-Saharan Africa\nLBY,Libya,75.36168293,2.356,6201521,Middle East & North Africa\nLCA,St. Lucia,74.79195122,1.912,182273,Latin America & Caribbean\nLIE,Liechtenstein,82.38292683,1.51,36925,Europe & Central Asia\nLKA,Sri Lanka,74.24029268,2.339,20483000,South Asia\nLSO,Lesotho,49.33146341,3.038,2074465,Sub-Saharan Africa\nLTU,Lithuania,74.16341463,1.6,2957689,Europe & Central Asia\nLUX,Luxembourg,81.79756098,1.57,543360,Europe & Central Asia\nLVA,Latvia,73.9804878,1.44,2012647,Europe & Central Asia\nMAC,\"Macao SAR, China\",80.3437561,1.083,566375,East Asia & Pacific\nMAF,St. Martin (French part),79.17073171,1.81,31264,Latin America & Caribbean\nMAR,Morocco,70.87212195,2.735,33008150,Middle East & North Africa\nMDA,Moldova,68.8115122,1.456,3558566,Europe & Central Asia\nMDG,Madagascar,64.69139024,4.468,22924851,Sub-Saharan Africa\nMDV,Maldives,77.93536585,2.256,345023,South Asia\nMEX,Mexico,77.35402439,2.185,122332399,Latin America & Caribbean\nMKD,\"Macedonia, FYR\",75.18802439,1.431,2107158,Europe & Central Asia\nMLI,Mali,55.0135122,6.847,15301650,Sub-Saharan Africa\nMLT,Malta,80.74634146,1.43,423374,Middle East & North Africa\nMMR,Myanmar,65.09968293,1.938,53259018,East Asia & Pacific\nMNE,Montenegro,74.75836585,1.666,621207,Europe & Central Asia\nMNG,Mongolia,67.54819512,2.436,2839073,East Asia & Pacific\nMOZ,Mozambique,50.17336585,5.188,25833752,Sub-Saharan Africa\nMRT,Mauritania,61.5117561,4.67,3889880,Sub-Saharan Africa\nMUS,Mauritius,74.46,1.44,1258653,Sub-Saharan Africa\nMWI,Malawi,55.23470732,5.389,16362567,Sub-Saharan Africa\nMYS,Malaysia,75.01626829,1.964,29716965,East Asia & Pacific\nNAM,Namibia,64.34387805,3.051,2303315,Sub-Saharan Africa\nNCL,New Caledonia,77.12195122,2.28,262000,East Asia & Pacific\nNER,Niger,58.44270732,7.561,17831270,Sub-Saharan Africa\nNGA,Nigeria,52.49978049,5.976,173615345,Sub-Saharan Africa\nNIC,Nicaragua,74.78817073,2.498,6080478,Latin America & Caribbean\nNLD,Netherlands,81.10487805,1.72,16804432,Europe & Central Asia\nNOR,Norway,81.45121951,1.85,5079623,Europe & Central Asia\nNPL,Nepal,68.40385366,2.3,27797457,South Asia\nNZL,New Zealand,81.40731707,1.95,4442100,East Asia & Pacific\nOMN,Oman,76.85202439,2.853,3632444,Middle East & North Africa\nPAK,Pakistan,66.58536585,3.185,182142594,South Asia\nPAN,Panama,77.57895122,2.466,3864170,Latin America & Caribbean\nPER,Peru,74.81460976,2.417,30375603,Latin America & Caribbean\nPHL,Philippines,68.7144878,3.043,98393574,East Asia & Pacific\nPNG,Papua New Guinea,62.43073171,3.781,7321262,East Asia & Pacific\nPOL,Poland,76.84878049,1.3,38040196,Europe & Central Asia\nPRI,Puerto Rico,78.71119512,1.636,3595839,Latin America & Caribbean\nPRK,\"Korea, Dem. Rep.\",69.80695122,1.988,24895480,East Asia & Pacific\nPRT,Portugal,80.37317073,1.28,10457295,Europe & Central Asia\nPRY,Paraguay,72.2734878,2.864,6802295,Latin America & Caribbean\nPYF,French Polynesia,76.33904878,2.058,276831,East Asia & Pacific\nQAT,Qatar,78.60690244,2.019,2168673,Middle East & North Africa\nROU,Romania,74.46341463,1.53,19983693,Europe & Central Asia\nRUS,Russian Federation,71.07317073,1.7,143506911,Europe & Central Asia\nRWA,Rwanda,63.99397561,4.508,11776522,Sub-Saharan Africa\nSAU,Saudi Arabia,75.70336585,2.644,28828870,Middle East & North Africa\nSDN,Sudan,62.0444878,4.42,37964306,Sub-Saharan Africa\nSEN,Senegal,63.35073171,4.934,14133280,Sub-Saharan Africa\nSGP,Singapore,82.34634146,1.19,5399200,East Asia & Pacific\nSLB,Solomon Islands,67.71690244,4.031,561231,East Asia & Pacific\nSLE,Sierra Leone,45.55095122,4.705,6092075,Sub-Saharan Africa\nSLV,El Salvador,72.33892683,2.184,6340454,Latin America & Caribbean\nSOM,Somalia,55.0245122,6.563,10495583,Sub-Saharan Africa\nSRB,Serbia,75.13658537,1.45,7164132,Europe & Central Asia\nSSD,South Sudan,55.24121951,4.92,11296173,Sub-Saharan Africa\nSTP,Sao Tome and Principe,66.26097561,4.075,192993,Sub-Saharan Africa\nSUR,Suriname,71.03163415,2.268,539276,Latin America & Caribbean\nSVK,Slovak Republic,76.26097561,1.34,5413393,Europe & Central Asia\nSVN,Slovenia,80.27804878,1.58,2059953,Europe & Central Asia\nSWE,Sweden,81.70487805,1.91,9600379,Europe & Central Asia\nSWZ,Swaziland,48.93792683,3.334,1249514,Sub-Saharan Africa\nSYC,Seychelles,74.22682927,2.4,89900,Sub-Saharan Africa\nSYR,Syrian Arab Republic,74.71578049,2.964,22845550,Middle East & North Africa\nTCD,Chad,51.15907317,6.263,12825314,Sub-Saharan Africa\nTGO,Togo,56.4885122,4.639,6816982,Sub-Saharan Africa\nTHA,Thailand,74.36507317,1.399,67010502,East Asia & Pacific\nTJK,Tajikistan,67.37460976,3.815,8207834,Europe & Central Asia\nTKM,Turkmenistan,65.46258537,2.326,5240072,Europe & Central Asia\nTLS,Timor-Leste,67.52236585,5.2,1180069,East Asia & Pacific\nTON,Tonga,72.64231707,3.767,105323,East Asia & Pacific\nTTO,Trinidad and Tobago,69.92521951,1.797,1341151,Latin America & Caribbean\nTUN,Tunisia,73.64634146,2.25,10886500,Middle East & North Africa\nTUR,Turkey,75.17595122,2.041,74932641,Europe & Central Asia\nTZA,Tanzania,61.49314634,5.214,49253126,Sub-Saharan Africa\nUGA,Uganda,59.19,5.867,37578876,Sub-Saharan Africa\nUKR,Ukraine,71.1595122,1.506,45489600,Europe & Central Asia\nURY,Uruguay,77.05141463,2.046,3407062,Latin America & Caribbean\nUSA,United States,78.84146341,1.8695,316497531,North America\nUZB,Uzbekistan,68.22758537,2.2,30243200,Europe & Central Asia\nVCT,St. Vincent and the Grenadines,72.50097561,1.997,109373,Latin America &Caribbean\nVEN,\"Venezuela, RB\",74.64309756,2.39,30405207,Latin America & Caribbean\nVIR,Virgin Islands (U.S.),79.62439024,1.77,104737,Latin America & Caribbean\nVNM,Vietnam,75.7564878,1.743,89708900,East Asia & Pacific\nVUT,Vanuatu,71.68682927,3.382,252763,East Asia & Pacific\nPSE,West Bank and Gaza,73.20334146,4.01,4169506,Middle East & North Africa\nWSM,Samoa,73.26487805,4.147,190372,East Asia & Pacific\nYEM,\"Yemen, Rep.\",63.08958537,4.075,24407381,Middle East & North Africa\nZAF,South Africa,56.73658537,2.387,53157490,Sub-Saharan Africa\nCOD,\"Congo, Dem. Rep.\",49.94385366,5.933,67513677,Sub-Saharan Africa\nZMB,Zambia,58.09278049,5.687,14538640,Sub-Saharan Africa\nZWE,Zimbabwe,59.7734878,3.486,14149648,Sub-Saharan Africa\n";
+    
+    var data = d3.csvParse(csvData, function(d) {
+      return {
+        CountryCode: d.CountryCode,
+        CountryName: d.CountryName,
+        LifeExp: +d.LifeExp,
+        FertRate: +d.FertRate,
+        Population: +d.Population,
+        Region: d.Region
+      };
+    });
+    var minBubbleSize = 5, maxBubbleSize = 50;
+    var margin = {
+        left: maxBubbleSize, top: maxBubbleSize,
+        bottom: maxBubbleSize, right: maxBubbleSize
+    };
+    var axisPadding = 10;
+    var graphWidth = 500, graphHeight = 400;
+    var totalWidth = graphWidth + margin.left + margin.right;
+    var totalHeight = graphHeight + margin.top + margin.bottom;
+
+    var lifeExpectancy = data.map(function (d) { return d.LifeExp; });
+    var fertilityRate = data.map(function (d) { return d.FertRate; });
+    var population = data.map(function (d) { return d.Population; });
+    var regions = data.map(function (d) { return d.Region; });
+    
+    var xScale = d3.scaleLinear()
+      .domain([d3.min(lifeExpectancy), d3.max(lifeExpectancy)])
+      .range([0, graphWidth]);
+    var yScale = d3.scaleLinear()
+      .domain([d3.max(fertilityRate), 0])
+      .range([0, graphHeight]);
+    var popScale = d3.scaleLinear()
+      .domain(d3.extent(population))
+      .range([minBubbleSize, maxBubbleSize]);
+    var uniqueRegions = d3.set(regions).values();
+    var regionColorMap = d3.scaleOrdinal()
+      .domain(uniqueRegions)
+      .range(d3.schemeCategory10);
+
+    var svg = d3.select("body").append('svg')
+      .attr('width', totalWidth)
+      .attr('height', totalHeight);
+    var yAxis = d3.axisLeft(yScale);
+    svg.append('g')
+      .attrs({
+        transform: 'translate(' + (margin.left - axisPadding) + ',' + margin.top + ')'
+      })
+      .call(yAxis);
+    var xAxis = d3.axisBottom(xScale);
+    svg.append('g')
+      .attrs({
+        transform: 'translate(' + margin.left + ',' + (margin.top + graphHeight + axisPadding) + ')'
+      })
+      .call(xAxis);
+
+    svg.append('g')
+      .attrs({
+        transform: 'translate(' + margin.left + ',' + margin.top + ')'
+      })
+      .selectAll('circle')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attrs({
+        cx: function(d) { return xScale(d.LifeExp); },
+        cy: function(d) { return yScale(d.FertRate); },
+        r: function(d) { return popScale(d.Population); },
+        fill: function(d) { return regionColorMap(d.Region); },
+        stroke: function(d) { return regionColorMap(d.Region); },
+        'fill-opacity': 0.6
+      })
+  </script>
+</body>
+</html>
