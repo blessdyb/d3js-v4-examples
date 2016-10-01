@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>User Interaction</title>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+</head>
+<body>
+  <script>
+    var zoomBehavior = d3.zoom().scaleExtent([0.1, 10]).on('zoom', function() {
+      svg.attrs({
+        transform: d3.event.transform
+      });
+    });
+    var svg = d3.select('body')
+      .append('svg')
+      .attrs({
+        width: 500,
+        height: 500
+      })
+      .call(zoomBehavior)
+      .append('g');
+
+    var label = svg.append('text')
+      .attrs({
+        x: 10,
+        y: 30
+      });
+
+    svg.on('mousemove', function() {
+      var position = d3.mouse(this);
+      label.text(position.toString());
+    });
+
+    var circleGroup = svg.append('g')
+      .attrs({
+        x: 100,
+        y: 100,
+        width: 400,
+        height: 400
+      });
+
+    var dragBehavior = d3.drag()
+      .on('drag', function(d) {
+        var x = d3.event.x - 100 - d * 2;
+        var y = d3.event.y - 100 - d * 2;
+        d3.select(this).attr('transform', 'translate(' + x + ',' + y + ')');
+      });
+
+    circleGroup.selectAll('circle')
+      .data([10, 20, 30])
+      .enter()
+      .append('circle')
+      .attrs({
+        cx: function(d, i) { return d * 2 * i + 100; },
+        cy: function(d, i) { return d * 2 * i + 100; },
+        r: function(d) { return d; },
+        fill: 'gray',
+        stroke: 'green'
+      })
+      .on('mouseenter', function() {
+        d3.select(this).attr('fill', 'red');
+      })
+      .on('mouseout', function() {
+        d3.select(this).attr('fill', 'gray');
+      })
+      .on('click', function(d, i) {
+        console.log(d + ',' + i);
+      })
+      .call(dragBehavior);
+
+    
+  </script>
+</body>
+</html>

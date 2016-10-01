@@ -179,6 +179,17 @@
         fill: 'steelblue',
         width: bands.bandwidth(),
         height: function(d) { return yScale(d); }
+      })
+      .on('mouseover', function (d, i) {
+        d3.select('text.label#text' + i).style('font-size', 18);
+        d3.select(this).attr('fill', 'orange');
+      })
+      .on('mouseout', function(d, i) {
+        d3.select('text.label#text' + i).style('font-size', 16);
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .attr('fill', 'steelblue');
       });
     barGroup.append('text')
       .text(function(d) { return d; })
@@ -187,8 +198,12 @@
         transform: 'rotate(90)',
         fill: 'white',
         dx: 10,
-        dy: -10
-      })
+        dy: -10,
+        class: 'label',
+        id: function(d, i) { return 'text' + i; }
+      });
+
+
     var leftAxisGroup = svg.append('g')
       .attrs({
         transform: 'translate(' + (margin.left - axisPadding) + ',' + (margin.top) + ')'
@@ -213,6 +228,20 @@
         transform: 'rotate(90) scale(1.5)',
         dx: 10,
         dy: -5
+      });
+
+    mainGraph.append('rect')
+      .attrs({
+        x: 0,
+        y: 0,
+        height: graphHeight,
+        width: graphWidth,
+        fill: 'white'
+      })
+      .transition()
+      .duration(5000)
+      .attrs({
+        height: 0
       });
     function translator(d, i) {
       return 'translate(' + bands(d) + ',' + (graphHeight - yScale(d)) + ')';
